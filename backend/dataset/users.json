@@ -1,0 +1,33 @@
+{
+    "students":[
+        {
+            "_id": "hjnd34343mm4",
+            "email":"alinehuhf@alustudent.com",
+            "password":"hjnfm#",
+            "firstName": "Aline",
+            "middleName": "",
+            "lastName": "Hufh",
+            "address":{
+                "province": "", "district":"",
+                "sector":"", "cell":"",
+                "street":""
+            }
+        }
+    ],
+    "facilitators":[
+        {
+            "_id": "jsfnmms",
+            "email":"martinN@aluteacher.com",
+            "password":"jdnm",
+            "firstName": "Martin",
+            "middleName": "Rud",
+            "lastName": "N",
+            "address":{
+                "province": "", "district":"",
+                "sector":"", "cell":"",
+                "street":""
+            }
+        }
+    ]
+
+}
