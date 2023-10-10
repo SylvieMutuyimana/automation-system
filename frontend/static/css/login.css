@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+:root {
+  --main_color: rgb(0, 97, 0);
+  --main_color_light: rgb(65, 189, 65);
+}
+.error {
+  color: red;
+  font-weight: normal;
+}
+
+.success {
+  color: green;
+  font-weight: normal;
+}
+
+body {
+  background: #222;
+  font-family: 'Quicksand', sans-serif;
+  width: 100%;
+  min-height: 100%;
+}
+
+section {
+  justify-content: center;
+  width: 80% !important;
+  align-items: center;
+  text-align: center;
+  margin-left: 10%;
+  min-height: 100%;
+  height: 100%;
+  padding: 10px;
+}
+.sign{
+  height: 700px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.sign .signin{
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.signin, .signup{
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 9);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+section h2 {
+  font-size: 2em;
+  color: var(--main_color);
+  text-transform: uppercase;
+}
+
+.form{
+  width: 80%;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+input,select,select option {
+  width: 90%;
+  background: #333;
+  border: none;
+  outline: none;
+  padding: 20px 20px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+.signin .links, .signup .links {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.signin .links a, .signup .links a{
+  color: #fff;
+  text-decoration: none;
+}
+.signin .links a:nth-child(2), .signup .links a:nth-child(2) {
+  color: var(--main_color);
+  font-weight: 600;
+}
+input[type="submit"] {
+  padding: 10px;
+  background: var(--main_color);
+  color: #000;
+  font-weight: 600;
+  font-size: 1.35em;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  width: 150px;
+  margin-top: 20px;
+}
+input[type="submit"]:active {
+  opacity: 0.6;
+}
+.password_requirements{
+  margin-top: 10px;
+  color: #dad7d7 !important;
+}

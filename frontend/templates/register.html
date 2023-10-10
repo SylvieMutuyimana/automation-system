@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>School</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <section>
+        <div class="signup">
+            <h2>Sign Up</h2>
+            {% if error %}
+            <p class="error">{{ error }}</p>  
+            {% endif %}
+            {% if success_message %}
+            <p class="success">{{ success_message }}</p> 
+            {% endif %}
+            <form class="form" method="POST" action="/signup">
+                <div class="inputBox">
+                    <select name="role" required id="role">
+                        <option value="students">Student</option>
+                        <option value="facilitators">Facilitator</option>
+                    </select>
+                </div>
+                <div class="inputBox" id="adminBox" style="display: none;">
+                    <select name="admin" required>
+                        <option value="False">Non admin</option>
+                        <option value="True">Admin</option>
+                    </select>
+                </div>
+                <div class="inputBox">
+                    <input type="text" name="email" placeholder="Email" required>
+                </div>
+                <div class="inputBox">
+                    <input type="text" name="firstName" placeholder="First Name" required>
+                </div>            
+                <div class="inputBox">
+                    <input type="text" name="middleName" placeholder="Middle Name">
+                </div>        
+                <div class="inputBox">
+                    <input type="text" name="lastName" placeholder="Last Name" required>
+                </div>
+                <div class="inputBox">
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="inputBox">
+                    <input type="password" name="repeatpassword" id="repeatpassword" placeholder="Password" required>
+                </div>
+                
+                <div class="links">
+                    <a href="/signup_admin">Admin Signup</a>
+                    <a href="/">Login</a>
+                    <span id="password_strength"></span>
+                </div>
+                <p id="password_weak" style="color: red; display: none;">Password too weak</p>
+                <p id="not_same_password" style="color: red; display: none;">Passwords not the same</p>
+                <div class="inputBox">
+                    <input type="submit" value="Signup" id="signup_button">
+                </div>
+                <div class="password_requirements">
+                    Password must:
+                    <ul class="ul">
+                        <li class="li">Be at least 8 characters long</li>
+                        <li class="li">Contain at least 1 uppercase letter</li>
+                        <li class="li">Contain at least 1 digit</li>
+                        <li class="li">Contain at least 1 special character</li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </section>
+    <script>
+        var passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/;
+        function checkPasswordStrength() {
+            var password = document.getElementById("password").value;
+            var strength = document.getElementById("password_strength");
+            var weakMessage = document.getElementById("password_weak");
+            if (passwordRegex.test(password)) {
+                strength.innerHTML = "Strong";
+                strength.style.color = "green";
+                weakMessage.style.display = "none"; 
+            } else {
+                strength.innerHTML = "Weak";
+                strength.style.color = "red";
+                weakMessage.style.display = "block"; 
+            }
+        }
+    
+        function checkSimilarPasswords() {
+            var password1 = document.getElementById("password").value;
+            var password2 = document.getElementById("repeatpassword").value;
+            console.log('password1: ', password1)
+            console.log('password2: ', password2)
+            var unsimilarPassword = document.getElementById("not_same_password");
+            if (password1 !== password2) {
+                unsimilarPassword.style.display = "block";
+            }else{
+                unsimilarPassword.style.display = "none";
+            }
+        }
+        function checkUserType() {
+            var userType = document.getElementById("role").value;
+            console.log('userType: ', userType)
+            var adminBox = document.getElementById("adminBox");
+            if (userType === "facilitators") {
+                adminBox.style.display = "block";
+            }else{
+                adminBox.style.display = "none";
+            }
+        }
+        document.getElementById("role").addEventListener("change", checkUserType);
+        document.getElementById("password").addEventListener("input", checkPasswordStrength);
+        document.getElementById("repeatpassword").addEventListener("input", checkSimilarPasswords);
+
+        document.getElementById("signup_button").addEventListener("click", function (e) {
+            var password = document.getElementById("password").value;
+            var weakMessage = document.getElementById("password_weak");
+            var password1 = document.getElementById("password").value;
+            var password2 = document.getElementById("repeatpassword").value;
+            var unsimilarPassword = document.getElementById("not_same_password");
+            var unsimilarPassword = document.getElementById("not_same_password");
+            if (!passwordRegex.test(password)) {
+                e.preventDefault(); 
+            }else if (password1 !== password2) {
+                e.preventDefault(); 
+                unsimilarPassword.style.display = "block";
+            }else if (password1 === password2) {
+                unsimilarPassword.style.display = "none";
+            }     
+        });
+    </script>
+    
+</body>
+</html>

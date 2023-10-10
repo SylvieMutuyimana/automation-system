@@ -3,34 +3,69 @@ import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import uuid
-from .. import dataset
+import bcrypt  # Import the bcrypt library
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-# Fetch all userTypes from the JSON file
 def return_dataset():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(current_dir, "../../dataset/users.json")
+    return file_path
+
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+
+# Fetch all userTypes from the JSON file
+def return_data():
+    file_path = return_dataset()
     with open(file_path) as file:
-        data = json.load(file)    
+        data = json.load(file)
     return data
 
 CORS(app, resources={r"/users/*": {"origins": "http://localhost:3000"}})
-@app.route('/addUser/<userType>', methods=['POST'])
-def add_user(new_user, userType):
-    new_user = request.json
-    new_user['_id'] = str(uuid.uuid4())
-    all_userTypeData = return_dataset()
-    all_userTypeData[userType].append(new_user)
+@app.route('/<userType>', methods=['POST'])
+def add_user(userType):
     try:
-        with open(users_path, 'w') as json_file:
-            try:
-                json.dump(all_userTypeData, json_file)
-                print('Session:\n', new_user, '\nadded successfully to:\n', users_path)
-            except Exception as e:
-                print("not added")
+        new_user = request.json
+        all_user_data = return_data()
+        for user_type in all_user_data:
+            for user in all_user_data[user_type]:
+                if user.get('email') == new_user['email']:
+                    return jsonify({"message": f"{new_user['email']} already exists"}), 400
+        
+        new_user['_id'] = str(uuid.uuid4())
+        # Hash the password before storing it
+        password = new_user.get('password')
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        new_user['password'] = hashed_password.decode('utf-8')  # Store the hashed password
+        
+        all_user_data = return_data()
+        all_user_data[userType].append(new_user)
+        
+        with open(return_dataset(), 'w') as json_file:
+            json.dump(all_user_data, json_file)
+        
+        return jsonify(new_user), 200
     except Exception as e:
-        print('Error adding session:', str(e))
-        print('Session data:', new_user)
-    return jsonify(new_user), 200
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/login', methods=['POST'])
+def login():
+    try:
+        login_data = request.json
+        email = login_data.get('email')
+        password = login_data.get('password')
+        all_user_data = return_data()
+        
+        for user_type in all_user_data:
+            for user in all_user_data[user_type]:
+                if user.get('email') == email:
+                    stored_password = user.get('password').encode('utf-8')
+                    if bcrypt.checkpw(password.encode('utf-8'), stored_password):
+                        return jsonify({"email": email, "userType": user_type}), 200
+        
+        raise Exception("Invalid email or password")
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
