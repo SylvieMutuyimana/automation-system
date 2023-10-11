@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 :root {
-  --main_color: rgb(0, 97, 0);
-  --main_color_light: rgb(65, 189, 65);
+  --main_color: rgb(18, 0, 83);
+  --main_color_light: rgb(37, 1, 170);
 }
 .error {
   color: red;
@@ -29,19 +29,20 @@ section {
   min-height: 100%;
   height: 100%;
   padding: 10px;
-}
-.sign{
   height: 700px;
   align-items: center;
   text-align: center;
   display: flex;
   justify-content: center;
 }
-.sign .signin{
+section.signup{
+  height: 1200px;
+}
+.formContainer{
   padding-top: 60px;
   padding-bottom: 60px;
 }
-.signin, .signup{
+.formContainer{
   margin-top: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -80,16 +81,16 @@ input,select,select option {
   font-size: 1em;
   margin-bottom: 20px;
 }
-.signin .links, .signup .links {
+.formContainer .links{
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.signin .links a, .signup .links a{
+.formContainer .links a{
   color: #fff;
   text-decoration: none;
 }
-.signin .links a:nth-child(2), .signup .links a:nth-child(2) {
+.formContainer .links a:nth-child(2){
   color: var(--main_color);
   font-weight: 600;
 }

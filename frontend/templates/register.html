@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>School</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <section>
-        <div class="signup">
+    <section class="signup">
+        <div class="formContainer">
+            <img src="{{ url_for('static', filename='img/logo.png') }}">
             <h2>Sign Up</h2>
             {% if error %}
             <p class="error">{{ error }}</p>  
@@ -48,23 +49,22 @@
                 </div>
                 
                 <div class="links">
-                    <a href="/signup_admin">Admin Signup</a>
                     <a href="/">Login</a>
                     <span id="password_strength"></span>
                 </div>
-                <p id="password_weak" style="color: red; display: none;">Password too weak</p>
                 <p id="not_same_password" style="color: red; display: none;">Passwords not the same</p>
+                <div class="password_requirements">
+                    Password must have:
+                    <ul class="ul">
+                        <li class="li" id="short_pass">at least 8 characters long</li>
+                        <li class="li" id="upper_pass">at least 1 uppercase letter</li>
+                        <li class="li" id="lower_pass">at least 1 lowecase letter</li>
+                        <li class="li" id="digit_pass">at least 1 digit</li>
+                        <li class="li" id="char_pass">at least 1 special character</li>
+                    </ul>
+                </div>
                 <div class="inputBox">
                     <input type="submit" value="Signup" id="signup_button">
-                </div>
-                <div class="password_requirements">
-                    Password must:
-                    <ul class="ul">
-                        <li class="li">Be at least 8 characters long</li>
-                        <li class="li">Contain at least 1 uppercase letter</li>
-                        <li class="li">Contain at least 1 digit</li>
-                        <li class="li">Contain at least 1 special character</li>
-                    </ul>
                 </div>
             </form>
         </div>
@@ -73,19 +73,43 @@
         var passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/;
         function checkPasswordStrength() {
             var password = document.getElementById("password").value;
-            var strength = document.getElementById("password_strength");
-            var weakMessage = document.getElementById("password_weak");
+            var strength_pass = document.getElementById("password_strength");
             if (passwordRegex.test(password)) {
-                strength.innerHTML = "Strong";
-                strength.style.color = "green";
-                weakMessage.style.display = "none"; 
+                strength_pass.innerHTML = "Strong Password";
+                strength_pass.style.color = "green";
             } else {
-                strength.innerHTML = "Weak";
-                strength.style.color = "red";
-                weakMessage.style.display = "block"; 
+                strength_pass.innerHTML = "Weak Password";
+                strength_pass.style.color = "red";
+            }
+            var short_pass = document.getElementById("short_pass");
+            var upper_pass = document.getElementById("upper_pass");
+            var lower_pass = document.getElementById("lower_pass");
+            var digit_pass = document.getElementById("digit_pass");
+            var char_pass = document.getElementById("char_pass");
+
+            if (password.length >= 8) {
+                short_pass.style.color = "green";
+            }else {
+                short_pass.style.color = "red";
+            }if (/[A-Z]/.test(password)) {
+                upper_pass.style.color = "green";
+            } else {
+                upper_pass.style.color = "red";
+            }if (/[a-z]/.test(password)) {
+                lower_pass.style.color = "green";
+            }else {
+                lower_pass.style.color = "red";
+            }if (/\d/.test(password)) {
+                digit_pass.style.color = "green";
+            } else {
+                digit_pass.style.color = "red";
+            }if (/[!@#$%^&*]/.test(password)) {
+                char_pass.style.color = "green";
+            } else {
+                char_pass.style.color = "red";
             }
         }
-    
+
         function checkSimilarPasswords() {
             var password1 = document.getElementById("password").value;
             var password2 = document.getElementById("repeatpassword").value;
@@ -114,10 +138,8 @@
 
         document.getElementById("signup_button").addEventListener("click", function (e) {
             var password = document.getElementById("password").value;
-            var weakMessage = document.getElementById("password_weak");
             var password1 = document.getElementById("password").value;
             var password2 = document.getElementById("repeatpassword").value;
-            var unsimilarPassword = document.getElementById("not_same_password");
             var unsimilarPassword = document.getElementById("not_same_password");
             if (!passwordRegex.test(password)) {
                 e.preventDefault(); 

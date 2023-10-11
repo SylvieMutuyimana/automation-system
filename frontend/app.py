@@ -7,8 +7,7 @@ backend_url = 'http://localhost:5000'
 # In-memory database (replace with a real database in a production environment)
 users = {}
 
-
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET','POST'])
 def login():
     error = None  # Initialize the error message variable
     success_message = None
@@ -20,12 +19,18 @@ def login():
                 'email': email,
                 'password': password
             })
-            print("response: ", response)
             if response.status_code == 200:
                 success_message = "Login successful"
                 error = None
-            else:
+                print('response: ', response)
+                user_type = response.userType
+                user_email = response.user_email
+                return redirect(f'/{user_type}/{user_email}')
+            if response.status_code == 400:
                 error = response.error
+                success_message = None
+            else:                
+                error = 'Invalid Login Details'
                 success_message = None
         except Exception as e:
             error = f"An error occurred: {str(e)}"
@@ -64,7 +69,6 @@ def signup():
                     'lastName': last_name,
                     'password': password
                 })
-            print("response: ", response)
             if response.status_code == 200:
                 success_message = "Signup successful"
                 error = None
@@ -78,6 +82,15 @@ def signup():
             error = f"An error occurred: {str(e)}"
     return render_template('register.html', error=error, success_message =success_message)
 
+@app.route('/<userType>/<userEmail>', methods=['GET', 'POST'])
+def dashboard(userType, userEmail):
+    userError = None
+    the_requests = requests.get(f'{backend_url}/requests/<userType>/<userEmail>')
+    
+    if userType == 'facilitator':
+        return render_template('facilitator.html', userError=userError, the_requests=the_requests)  
+    else:
+        return render_template('student.html', userError=userError, student_requests=the_requests)  
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=3000)

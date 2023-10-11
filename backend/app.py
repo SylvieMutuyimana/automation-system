@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from api.get.districts import all_addresses, provinceDataRoute, districtDataRoute, sectorDataRoute
 from api.get.users import all_users, userTypeDataRoute, userDataRoute 
+from api.get.requests import all_requests, requestDataRoute, FacilitatorrequestData, StudentrequestData
 from api.put_post.users import add_user, login
 
 # Read the URL from the ip_address.txt file
@@ -20,6 +21,7 @@ def root():
         "Welcome to the API! <br>"
         "Visit <a href='/location'>/location</a> to get all locations.<br>"
         "Visit <a href='/users'>/users</a> to get all users.<br>"
+        "Visit <a href='/requests'>/requests</a> to get all requests.<br>"
         "<br>POSTING<br>"
         "Visit <a href='/addUser'>addUser</a> to addUser.<br>"
     )
@@ -34,6 +36,13 @@ app.add_url_rule("/location/<provinceName>/<districtName>/<sectorName>", "sector
 app.add_url_rule("/users", "all_users", all_users, methods=["GET"])
 app.add_url_rule("/users/<userType>", "userTypeDataRoute", userTypeDataRoute, methods=["GET"])
 app.add_url_rule("/users/<userType>/<userId>", "userDataRoute", userDataRoute, methods=["GET"])
+
+# requests routes
+app.add_url_rule("/requests", "all_requests", all_requests, methods=["GET"])
+app.add_url_rule("/requests/<requestID>", "requestDataRoute", requestDataRoute, methods=["GET"])
+app.add_url_rule("/requests/student/<student>", "StudentrequestData", StudentrequestData, methods=["GET"])
+app.add_url_rule("/requests/facilitator/<facilitator>", "FacilitatorrequestData", FacilitatorrequestData, methods=["GET"])
+
 app.add_url_rule("/<userType>", "add_user", add_user, methods=["POST"])
 app.add_url_rule("/login", "login", login, methods=["POST"])
 

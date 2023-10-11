@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>School</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <section >
+        <div class="signin">
+            <div class="header">
+                <h2>ALU SUPPORT</h2>
+            </div>
+            <h2>Facilitator Requests</h2>
+            {%if requests%}
+                <div class="group">                    
+                    {%for request in requests%}
+                        <div class="card" > 
+                            <h5>{{request.name}}</h5>
+                            <div>
+                                <p>Respond</p>
+                                <p>{{request.timestamp}}</p>
+                                <p>{{request.student}}</p>
+                                <span>{{request.message}}</span>
+                            </div>
+                        </div>
+                    {%endfor%}
+                </div>
+            {%else%}
+                <p>You currently do not have any request</p>
+            {%endif%}
+        </div>
+        
+    </section>
+</body>
+</html>

@@ -1,16 +1,10 @@
-{
-    "admin":[
-        {
-            "userId": "hjnd34343mm4",
-            "_id": "scdjnfvdm",
-            "": ""
-        }
-    ],
-    "academic": [
-        {
-            "userId": "hjnd34343mm4",
-            "_id": "scdjnfvdm",
-            "": ""
-        }
-    ]
-}
+[
+    {
+        "_id": "scdjnfvdm",
+        "student": "student@gmail.com",
+        "facilitator":"jhnr@gmail.com",
+        "title": "Request Title",
+        "message":"This is the message",
+        "time-stamp":"434:34:7"
+    }
+]

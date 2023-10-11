@@ -3,9 +3,11 @@ import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import uuid
-import bcrypt  # Import the bcrypt library
+import bcrypt
+import jwt  # Import the JWT library
 
 app = Flask(__name__)
+SECRET_KEY = 'your_secret_key_here'  # Replace with your actual secret key
 
 def return_dataset():
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -21,13 +23,17 @@ def return_data():
         data = json.load(file)
     return data
 
-CORS(app, resources={r"/users/*": {"origins": "http://localhost:3000"}})
+# Function to generate a JWT token
+def generate_token(email, user_type):
+    payload = {'email': email, 'user_type': user_type}
+    token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+    return token
+
 @app.route('/<userType>', methods=['POST'])
 def add_user(userType):
     try:
         new_user = request.json
         all_user_data = return_data()
-        print('all_user_data: ', all_user_data)
         for user_type in all_user_data:
             for user in all_user_data[user_type]:
                 if user.get('email') == new_user['email']:
@@ -62,7 +68,9 @@ def login():
                 if user.get('email') == email:
                     stored_password = user.get('password').encode('utf-8')
                     if bcrypt.checkpw(password.encode('utf-8'), stored_password):
-                        return jsonify({"email": email, "userType": user_type}), 200, {"userType": user_type}
+                        # Generate a token upon successful login
+                        token = generate_token(email, user_type)
+                        return jsonify({"email": email, "userType": user_type, "token": token}), 200
         
         raise Exception("Invalid email or password")
     except Exception as e:
