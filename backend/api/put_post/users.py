@@ -62,7 +62,7 @@ def login():
                 if user.get('email') == email:
                     stored_password = user.get('password').encode('utf-8')
                     if bcrypt.checkpw(password.encode('utf-8'), stored_password):
-                        return jsonify({"email": email, "userType": user_type}), 200, {"userType": user_type}
+                        return jsonify({"email": email, "userType": user_type}), 200
         
         raise Exception("Invalid email or password")
     except Exception as e:

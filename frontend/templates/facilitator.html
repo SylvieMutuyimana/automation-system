@@ -14,24 +14,29 @@
                     <input type="submit" value="Logout">
                 </form>
             </div>
-            <h3>Facilitator Requests</h3>
-            {%if requests%}
-                <div class="group">                    
-                    {%for request in requests%}
-                        <div class="card" > 
-                            <h5>{{request.name}}</h5>
-                            <div>
-                                <p>Respond</p>
-                                <p>{{request.timestamp}}</p>
-                                <p>{{request.student}}</p>
-                                <span>{{request.message}}</span>
-                            </div>
-                        </div>
-                    {%endfor%}
+            <div class="page">
+                <div>
+                    <h3 class="left">Submitted Requests</h3>
                 </div>
-            {%else%}
-                <p>You currently do not have any request</p>
-            {%endif%}
+                <div class="group">
+                {% if requests %}
+                        {% for request in requests %}
+                            <div class="card">
+                                <h5>{{ request.title }}</h5> 
+                                <div>
+                                    <p>{{ request.timestamp }}</p> 
+                                    <p>{{ request.facilitator }}</p> 
+                                    <span>{{ request.message }}</span> 
+                                </div>
+                                <a href="{{ url_for('respond', requestID=request._id) }}">Respond</a>
+                            </div>
+                        {% endfor %}
+                {% else %}
+                    You currently do not have any request
+                {% endif %}
+            </div>
+            </div>
+            
         </div>
         
     </section>

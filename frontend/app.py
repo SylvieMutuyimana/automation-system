@@ -22,9 +22,15 @@ def login():
             if response.status_code == 200:
                 success_message = "Login successful"
                 error = None
-                print('response: ', response)
-                user_type = response.json().get('userType')
-                user_email = response.json().get('user_email')
+                print('response: ', response.json())
+                usertype = response.json().get('userType')
+                user_email = response.json().get('email')
+                if(usertype == 'facilitators'):
+                    user_type = 'facilitator'
+                elif(usertype == 'students'):
+                    user_type = 'student'
+                print('user_email: ', user_email)
+                print('user_type: ', user_type)
                 return redirect(f'/{user_type}/{user_email}')
             if response.status_code == 400:
                 error = response.error
@@ -90,7 +96,9 @@ def dashboard(userType, userEmail):
     the_requests = response.json()
     print('the_requests: ', the_requests)
     if userType == 'facilitator':
-        return render_template('facilitator.html', userError=userError, requests=the_requests)  
+        _requests = [request for request in the_requests if request['facilitator'] == userEmail]
+        print('_requests: ', _requests)
+        return render_template('facilitator.html', userError=userError, requests=_requests)  
     else:
         return render_template('student.html', userError=userError, requests=the_requests, userEmail=userEmail)  
 
@@ -129,26 +137,25 @@ def responses(requestID):
     success_message= None
     the_response = requests.get(f'{backend_url}/requests/{requestID}')
     request_name = the_response.json().get('title')
-    print('the request_name: ', request_name)
     response = requests.get(f'{backend_url}/requests/{requestID}/responses')
     responses = response.json()
-    print('the responses: ', responses)
+    return render_template('request_responses.html', requestID =requestID, error=error, success_message=success_message, request_name=request_name, responses=responses)  
+
+@app.route('/<requestID>/responses', methods=['GET', 'POST'])
+def respond(requestID):
+    success_message= None
     if request.method == 'POST':
-        title = request.form['title']
         message = request.form['message']        
         try:
             response = requests.post(f'{backend_url}/requests/{requestID}/responses', json={
-                'title': title,
                 'message': message
             })
             if response.status_code == 200:
                 success_message = "Request successfully added"
-                error=None
         except Exception as e:
             error = f"An error occurred: {str(e)}"
     else:
-        return render_template('request_responses.html', requestID =requestID, error=error, success_message=success_message, request_name=request_name, responses=responses)  
-
+        return render_template('new_rjjesponse.html', requestID =requestID, success_message=success_message, responses=responses)  
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)
