@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>School</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <section >
@@ -15,11 +16,14 @@
                 </form>
             </div>
             <div class="page">
-                <div>
-                    <h3 class="left">Request responses</h3>
-                </div>
-                {% if responses %}
-                    <div class="responses">
+                <p style="color: antiquewhite;">
+                    <a href="javascript:history.go(-1)">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>                
+                </p>
+                <h3>Request responses</h3>
+                <div class="responses">
+                    {% if responses %}
                         {% for response in responses %}
                             <div class="response">
                                 {%if request_name%}
@@ -30,11 +34,12 @@
                                     <p>{{ response.timestamp }}</p> 
                                 </div>
                             </div>
+                            <br>
                         {% endfor %}
-                    </div>
-                {% else %}
-                    <div>Your request currently has no response</div>
-                {% endif %}
+                    {% else %}
+                        Your request currently has no response
+                    {% endif %}
+                </div>
             </div>
             
         </div>

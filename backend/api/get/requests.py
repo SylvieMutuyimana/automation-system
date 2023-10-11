@@ -30,7 +30,7 @@ def getResponseRequestData(requestID):
 
 def getRequestData(requestID):
     all_requests = return_request_dataset()
-    request_data = [request for request in all_requests if request['_id'] == requestID]
+    request_data = next((request for request in all_requests if request['_id'] == requestID), None)
     if request_data:
         return request_data
     else: return None

@@ -127,17 +127,17 @@ def new_request(student):
 def responses(requestID):
     error=None
     success_message= None
-    response = requests.get(f'{backend_url}/requests/<requestID>/responses')
-    the_response = requests.get(f'{backend_url}/requests/<requestID>')
-    request_name = the_response.json().get("title")
-    response = requests.get(f'{backend_url}/requests/<requestID>/responses')
+    the_response = requests.get(f'{backend_url}/requests/{requestID}')
+    request_name = the_response.json().get('title')
+    print('the request_name: ', request_name)
+    response = requests.get(f'{backend_url}/requests/{requestID}/responses')
     responses = response.json()
-    print('responses: ', responses)
+    print('the responses: ', responses)
     if request.method == 'POST':
         title = request.form['title']
         message = request.form['message']        
         try:
-            response = requests.post(f'{backend_url}/requests/<requestID>/responses', json={
+            response = requests.post(f'{backend_url}/requests/{requestID}/responses', json={
                 'title': title,
                 'message': message
             })
@@ -147,7 +147,7 @@ def responses(requestID):
         except Exception as e:
             error = f"An error occurred: {str(e)}"
     else:
-        return render_template('request_responses.html', requestID =requestID, error=error, success_message=success_message, request_name=request_name)  
+        return render_template('request_responses.html', requestID =requestID, error=error, success_message=success_message, request_name=request_name, responses=responses)  
 
 
 if __name__ == '__main__':
