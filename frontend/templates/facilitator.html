@@ -7,11 +7,14 @@
 </head>
 <body>
     <section >
-        <div class="signin">
+        <div class="dashboard">
             <div class="header">
-                <h2>ALU SUPPORT</h2>
+                <h2 class="left">ALU SUPPORT</h2>
+                <form method="POST" action="/logout" class="right">
+                    <input type="submit" value="Logout">
+                </form>
             </div>
-            <h2>Facilitator Requests</h2>
+            <h3>Facilitator Requests</h3>
             {%if requests%}
                 <div class="group">                    
                     {%for request in requests%}

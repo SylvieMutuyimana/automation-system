@@ -2,8 +2,9 @@ from flask import Flask
 from flask_cors import CORS
 from api.get.districts import all_addresses, provinceDataRoute, districtDataRoute, sectorDataRoute
 from api.get.users import all_users, userTypeDataRoute, userDataRoute 
-from api.get.requests import all_requests, requestDataRoute, FacilitatorrequestData, StudentrequestData
+from api.get.requests import all_requests, requestDataRoute, FacilitatorrequestData, StudentrequestData, requestResponsesRoute
 from api.put_post.users import add_user, login
+from api.put_post.requests import add_request, add_response
 
 # Read the URL from the ip_address.txt file
 ip_file = "localhost_ip.txt"
@@ -40,11 +41,15 @@ app.add_url_rule("/users/<userType>/<userId>", "userDataRoute", userDataRoute, m
 # requests routes
 app.add_url_rule("/requests", "all_requests", all_requests, methods=["GET"])
 app.add_url_rule("/requests/<requestID>", "requestDataRoute", requestDataRoute, methods=["GET"])
+app.add_url_rule("/requests/<requestID>/responses", "requestResponsesRoute", requestResponsesRoute, methods=["GET"])
+app.add_url_rule("/requests/<requestID>/responses", "add_response", add_response, methods=["POST"])
 app.add_url_rule("/requests/student/<student>", "StudentrequestData", StudentrequestData, methods=["GET"])
 app.add_url_rule("/requests/facilitator/<facilitator>", "FacilitatorrequestData", FacilitatorrequestData, methods=["GET"])
 
 app.add_url_rule("/<userType>", "add_user", add_user, methods=["POST"])
 app.add_url_rule("/login", "login", login, methods=["POST"])
+
+app.add_url_rule("/new_request/<student>", "add_request", add_request, methods=["POST"])
 
 if __name__ == "__main__":
     app.run(host=url, port=5001)

@@ -2,6 +2,7 @@
 :root {
   --main_color: rgb(55, 0, 255);
   --main_color_light: rgb(37, 1, 170);
+  color: white;
 }
 .error {
   color: red;
@@ -12,7 +13,40 @@
   color: green;
   font-weight: normal;
 }
+.right, .left{
+  width: 40%;
+}
+.right{
+  float: right;
+  text-align: right;
+  align-items: right;
+  color: white;
+}
+.group{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Create 3 equal columns */
+  gap: 10px 40px; 
+  margin-left: 0 !important;
+}
 
+.card{
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  box-sizing: border-box;
+    box-sizing: border-box; 
+     background-color: rgba(255, 255, 255, 0.808);
+     color: #000;
+     width: 110%;
+}
+
+.card:hover{
+  border: 5px solid #01550169;
+  cursor: pointer;
+}
+.left{
+  float: left;
+}
 body {
   background: #222;
   font-family: 'Quicksand', sans-serif;
@@ -20,23 +54,56 @@ body {
   min-height: 100%;
 }
 
+.header{
+  box-shadow: 0 0px 15px rgba(0, 0, 0, 9);
+  position: fixed;
+  top: 0;
+  margin-top: 0;
+  margin-left: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #222;
+  background-color: #222;
+
+}
+
+.dashboard .page{
+  margin-top: 100px;
+  z-index: 0;
+}
+
+#message{
+  height: 140px !important;
+  width: 250px !important;
+}
+
 section {
-  justify-content: center;
   width: 80% !important;
-  align-items: center;
-  text-align: center;
   margin-left: 10%;
   min-height: 100%;
-  height: 100%;
   padding: 20px 10px;
   height: 700px;
+  display: flex;
+}
+section.signin, section.signup{
   align-items: center;
   text-align: center;
-  display: flex;
   justify-content: center;
 }
 section.signup{
   height: 1200px;
+}
+section.dashboard{
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  align-items: center;
+  text-align: center;
+  background-color: olive;
 }
 .formContainer{
   padding-top: 60px;
@@ -55,20 +122,31 @@ section.signup{
   display: flex;
   flex-direction: column;
 }
-
+i{
+  color: white;
+}
+i:hover{
+  color: var(--main_color_light);
+  font-size: 19px;
+}
 section h2 {
   font-size: 2em;
   color: var(--main_color);
   text-transform: uppercase;
 }
-
+a:hover{
+  cursor: pointer;
+}
 .form{
   width: 80%;
   align-items: center;
   text-align: center;
   justify-content: center;
 }
-
+.form .new_request{
+  text-align: left;
+  align-items: left;
+}
 input,select,select option {
   width: 90%;
   background: #333;

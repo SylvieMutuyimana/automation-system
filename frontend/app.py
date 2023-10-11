@@ -23,8 +23,8 @@ def login():
                 success_message = "Login successful"
                 error = None
                 print('response: ', response)
-                user_type = response.userType
-                user_email = response.user_email
+                user_type = response.json().get('userType')
+                user_email = response.json().get('user_email')
                 return redirect(f'/{user_type}/{user_email}')
             if response.status_code == 400:
                 error = response.error
@@ -85,12 +85,70 @@ def signup():
 @app.route('/<userType>/<userEmail>', methods=['GET', 'POST'])
 def dashboard(userType, userEmail):
     userError = None
-    the_requests = requests.get(f'{backend_url}/requests/<userType>/<userEmail>')
-    
+    #the_requests = requests.get(f'{backend_url}/requests/<userType>/<userEmail>')
+    response = requests.get(f'{backend_url}/requests/student/student@gmail.com')
+    the_requests = response.json()
+    print('the_requests: ', the_requests)
     if userType == 'facilitator':
-        return render_template('facilitator.html', userError=userError, the_requests=the_requests)  
+        return render_template('facilitator.html', userError=userError, requests=the_requests)  
     else:
-        return render_template('student.html', userError=userError, student_requests=the_requests)  
+        return render_template('student.html', userError=userError, requests=the_requests, userEmail=userEmail)  
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    return redirect('/')
+
+@app.route('/new_request/<student>', methods=['GET', 'POST'])
+def new_request(student):
+    error=None
+    success_message= None
+    response = requests.get(f'{backend_url}/users/facilitators')
+    facilitators = response.json()
+    print('facilitators: ', facilitators)
+    if request.method == 'POST':
+        facilitator = request.form.get('facilitator')
+        title = request.form['title']
+        message = request.form['message']        
+        try:
+            response = requests.post(f'{backend_url}/new_request/{student}', json={
+                'student': student,
+                'facilitator': facilitator,
+                'title': title,
+                'message': message
+            })
+            if response.status_code == 200:
+                success_message = "Request successfully added"
+                error=None
+        except Exception as e:
+            error = f"An error occurred: {str(e)}"
+    return render_template('new_request.html',student=student, error=error, success_message=success_message, facilitators=facilitators)  
+
+@app.route('/<requestID>/responses', methods=['GET', 'POST'])
+def responses(requestID):
+    error=None
+    success_message= None
+    response = requests.get(f'{backend_url}/requests/<requestID>/responses')
+    the_response = requests.get(f'{backend_url}/requests/<requestID>')
+    request_name = the_response.json().get("title")
+    response = requests.get(f'{backend_url}/requests/<requestID>/responses')
+    responses = response.json()
+    print('responses: ', responses)
+    if request.method == 'POST':
+        title = request.form['title']
+        message = request.form['message']        
+        try:
+            response = requests.post(f'{backend_url}/requests/<requestID>/responses', json={
+                'title': title,
+                'message': message
+            })
+            if response.status_code == 200:
+                success_message = "Request successfully added"
+                error=None
+        except Exception as e:
+            error = f"An error occurred: {str(e)}"
+    else:
+        return render_template('request_responses.html', requestID =requestID, error=error, success_message=success_message, request_name=request_name)  
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)

@@ -6,31 +6,52 @@ import os
 app = Flask(__name__)
 CORS(app, resources={r"/*":{"origins":"*"}})
 
-def return_dataset():
+def return_dataset(filename):
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(current_dir, "../../dataset/requests.json")
+    file_path = os.path.join(current_dir,filename)
     with open(file_path) as file:
         data = json.load(file)    
     return data
 
-def getRequestData(requestID):
-    all_requests = return_dataset()
-    request_data = next((request for request in all_requests if request['_id'] == requestID), None)
-    return request_data
+def return_request_dataset():
+    filename =  "../../dataset/requests.json"
+    return return_dataset(filename)
 
+def return_response_dataset():
+    filename =  "../../dataset/responses.json"
+    return return_dataset(filename)
+
+def getResponseRequestData(requestID):
+    all_responses = return_response_dataset()
+    request_responses = all_responses.get(requestID)
+    if request_responses:
+        return request_responses
+    else: return None
+
+def getRequestData(requestID):
+    all_requests = return_request_dataset()
+    request_data = [request for request in all_requests if request['_id'] == requestID]
+    if request_data:
+        return request_data
+    else: return None
+    
 def getFacilitatorRequests(facilitator):
-    all_requests = return_dataset()
-    facilitatorRequests = next((request for request in all_requests if request['facilitator'] == facilitator), None)
-    return facilitatorRequests
+    all_requests = return_request_dataset()
+    facilitatorRequests = [request for request in all_requests if request['facilitator'] == facilitator]
+    if facilitatorRequests:
+        return facilitatorRequests
+    else: return None
 
 def getStudentRequests(student):
-    all_requests = return_dataset()
-    studentRequests = next((request for request in all_requests if request['student'] == student), None)
-    return studentRequests
+    all_requests = return_request_dataset()
+    studentRequests = [request for request in all_requests if request['student'] == student]
+    if studentRequests:
+        return studentRequests
+    else: return None
 
 @app.route('/requests', methods=['GET'])
 def all_requests():
-    the_requests = return_dataset()
+    the_requests = return_request_dataset()
     return jsonify(the_requests)
 
 @app.route('/requests/<requestID>', methods=['GET'])
@@ -39,6 +60,13 @@ def requestDataRoute(requestID):
     if request_data:
         return jsonify(request_data)
     return jsonify({'error': 'request not found'}), 404
+
+@app.route('/requests/<requestID>/responses', methods=['GET'])
+def requestResponsesRoute(requestID):
+    request_responses = getResponseRequestData(requestID)
+    if request_responses:
+        return jsonify(request_responses)
+    return jsonify({'error': 'request responses not found'}), 404
 
 @app.route('/requests/facilitator/<facilitator>', methods=['GET'])
 def FacilitatorrequestData(facilitator):

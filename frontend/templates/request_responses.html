@@ -16,25 +16,24 @@
             </div>
             <div class="page">
                 <div>
-                    <h3 class="left">My Requests</h3>
-                    <a href="{{ url_for('new_request', student=userEmail) }}" class="right">New Request</a>
+                    <h3 class="left">Request responses</h3>
                 </div>
-                {% if requests %}
-                    <div class="group">
-                        {% for request in requests %}
-                            <div class="card">
-                                <h5>{{ request.title }}</h5> 
+                {% if responses %}
+                    <div class="responses">
+                        {% for response in responses %}
+                            <div class="response">
+                                {%if request_name%}
+                                    <h5>{{ request_name }}</h5> 
+                                {%endif%}
                                 <div>
-                                    <p>{{ request.timestamp }}</p> 
-                                    <p>{{ request.facilitator }}</p> 
-                                    <span>{{ request.message }}</span> 
+                                    <span>{{ response.message }}</span> 
+                                    <p>{{ response.timestamp }}</p> 
                                 </div>
-                                <a href="{{ url_for('responses', requestID=request._id) }}">Responses</a>
                             </div>
                         {% endfor %}
                     </div>
                 {% else %}
-                    <p>You currently have not submitted any request</p>
+                    <div>Your request currently has no response</div>
                 {% endif %}
             </div>
             
