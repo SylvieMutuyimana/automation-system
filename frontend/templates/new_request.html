@@ -16,16 +16,17 @@
                 </form>
             </div>
             <div class="page">
-                {% if error %}
-                <p class="error">{{ error }}</p>  
-                {% endif %}
-                {% if success_message %}
-                <p class="success">{{ success_message }}</p> 
-                {% endif %}
+                <p style="color: antiquewhite;">
+                    <a href="{{ url_for('dashboard', userType='student',userEmail= student) }}">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>            
+                </p>
+
+                <h3>New request</h3>
                 <form class="form new_request" method="POST" action="{{ url_for('new_request', student=student) }}">
                     <div class="inputBox">
                         <select name="facilitator" required>
-                            <option value="">facilitator</option>
+                            <option value="">Select</option>
                             {%if facilitators %}
                                 {%for facilitator in facilitators %}
                                     <option value={facilitator.email}>{{facilitator.firstName}} {{facilitator.middleName}} {{facilitator.lastName}}</option>
@@ -39,6 +40,12 @@
                     <div class="inputBox">
                         <input type="text" name="message" id="message" placeholder="Message" required>
                     </div>    
+                    {% if error %}
+                    <p class="error">{{ error }}</p>  
+                    {% endif %}
+                    {% if success_message %}
+                    <p class="success">{{ success_message }}</p> 
+                    {% endif %}
                     <div class="inputBox">
                         <input type="submit" value="Submit">
                     </div>               

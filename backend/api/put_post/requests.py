@@ -31,7 +31,7 @@ def add_request(student):
         file_path = return_dataset("../../dataset/requests.json")
         all_request_data = return_data(file_path)
         all_request_data.append(new_request)
-        with open(return_dataset(), 'w') as json_file:
+        with open(return_dataset("../../dataset/requests.json"), 'w') as json_file:
             json.dump(all_request_data, json_file)
         return jsonify(new_request), 200
     except Exception as e:
@@ -49,7 +49,7 @@ def add_response(requestID):
         file_path = return_dataset("../../dataset/responses.json")
         all_request_data = return_data(file_path)
         all_request_data[requestID].append(new_response)
-        with open(return_dataset(), 'w') as json_file:
+        with open(return_dataset("../../dataset/responses.json"), 'w') as json_file:
             json.dump(all_request_data, json_file)
         return jsonify(new_response), 200
     except Exception as e:

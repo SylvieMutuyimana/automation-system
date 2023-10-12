@@ -23,22 +23,23 @@
                 </p>
                 <h3>Request responses</h3>
                 <div class="responses">
-                    {% if responses %}
-                        {% for response in responses %}
-                            <div class="response">
-                                {%if request_name%}
-                                    <h5>{{ request_name }}</h5> 
-                                {%endif%}
+                    <div class="response">
+                        {%if request_name%}
+                            <h5>{{ request_name }}</h5> 
+                        {%endif%}
+                        {% if responses %}
+                            {% for response in responses %}
                                 <div>
                                     <span>{{ response.message }}</span> 
                                     <p>{{ response.timestamp }}</p> 
                                 </div>
-                            </div>
-                            <br>
-                        {% endfor %}
-                    {% else %}
-                        Your request currently has no response
-                    {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            Your request currently has no response
+                        {% endif %}
+                    </div>
+                    <br>
+
                 </div>
             </div>
             
