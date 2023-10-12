@@ -28,7 +28,11 @@
                             <option value="">Selecta facilitator</option>
                             {%if facilitators %}
                                 {%for facilitator in facilitators %}
-                                    <option value={facilitator.email}>{{facilitator.firstName}} {{facilitator.middleName}} {{facilitator.lastName}}</option>
+                                    <option value={{facilitator.email}}>
+                                        {{facilitator.firstName}} 
+                                        {{facilitator.middleName}} 
+                                        {{facilitator.lastName}}
+                                    </option>
                                 {%endfor%}
                             {%endif%}
                         </select>
