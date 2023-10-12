@@ -17,18 +17,21 @@
             </div>
             <div class="page">
                 <p style="color: antiquewhite;">
-                    <a href="javascript:history.go(-1)">
+                    <a href="{{ url_for('dashboard', userType='facilitator', userEmail= facilitator) }}">
                         <i class="fa fa-arrow-left"></i>
-                    </a>                
+                    </a>            
                 </p>
                 <h3>Create response</h3>
-                {% if success_message %}
-                <p class="success">{{ success_message }}</p> 
-                {% endif %}
-                <form class="form new_request" method="POST" action="{{ url_for('respond', requestID=requestID) }}">
+                <form class="form new_request" method="POST" action="{{ url_for('respond_page', requestID=requestID, facilitator = facilitator) }}">
                     <div class="inputBox">
                         <input type="text" name="message" id="message" placeholder="Message" required>
                     </div>    
+                    {% if error %}
+                    <p class="error">{{ error }}</p>  
+                    {% endif %}
+                    {% if success_message %}
+                    <p class="success">{{ success_message }}</p> 
+                    {% endif %}
                     <div class="inputBox">
                         <input type="submit" value="Submit">
                     </div>               

@@ -20,10 +20,10 @@ def get_allUsersTypeData(userType):
     userTypeData = all_users.get(userType, None)
     return userTypeData
 
-# Fetch a specific user from the JSON file based on userID and userType
-def getUserData(userType, userID):
+# Fetch a specific user from the JSON file based on userEmail and userType
+def getUserData(userType, userEmail):
     userTypeData = get_allUsersTypeData(userType)
-    userData = next((user for user in userTypeData if user['_id'] == userID), None)
+    userData = next((user for user in userTypeData if user['email'] == userEmail), None)
     return userData
 
 # Define route to get all userTypes
@@ -41,9 +41,9 @@ def userTypeDataRoute(userType):
     return jsonify({'error': 'userType not found'}), 404
 
 # Define route to get a specific user of a specific userType
-@app.route('/users/<userType>/<userID>', methods=['GET'])
-def userDataRoute(userType, userID):
-    userData = getUserData(userType, userID)
+@app.route('/users/<userType>/<userEmail>', methods=['GET'])
+def userDataRoute(userType, userEmail):
+    userData = getUserData(userType, userEmail)
     if userData:
         return jsonify(userData)
     return jsonify({'error': 'user not found'}), 404

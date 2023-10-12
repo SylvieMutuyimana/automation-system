@@ -9,8 +9,8 @@
     <section >
         <div class="dashboard">
             <div class="header">
-                <h2 class="left">ALU SUPPORT</h2>
-                <form method="POST" action="/logout" class="right">
+                <h2 class="leftheader">ALU REQUESTS</h2>
+                <form method="POST" action="/logout" class="rightheader">
                     <input type="submit" value="Logout">
                 </form>
             </div>
@@ -20,6 +20,7 @@
                     <a href="{{ url_for('new_request', student=userEmail) }}" class="right">New Request</a>
                 </div>
                 {% if requests %}
+                <p>Total requests: {{ requests|length }}</p>
                     <div class="group">
                         {% for request in requests %}
                             <div class="card">

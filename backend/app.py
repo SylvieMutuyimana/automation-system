@@ -36,7 +36,7 @@ app.add_url_rule("/location/<provinceName>/<districtName>/<sectorName>", "sector
 # Users routes
 app.add_url_rule("/users", "all_users", all_users, methods=["GET"])
 app.add_url_rule("/users/<userType>", "userTypeDataRoute", userTypeDataRoute, methods=["GET"])
-app.add_url_rule("/users/<userType>/<userId>", "userDataRoute", userDataRoute, methods=["GET"])
+app.add_url_rule("/users/<userType>/<userEmail>", "userDataRoute", userDataRoute, methods=["GET"])
 
 # requests routes
 app.add_url_rule("/requests", "all_requests", all_requests, methods=["GET"])

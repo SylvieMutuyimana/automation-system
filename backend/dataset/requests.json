@@ -1,1 +1,50 @@
-[{"_id": "scdjnfvdm", "student": "aline_s@alustudent.com", "facilitator": "jhnr@gmail.com", "title": "Request Title", "message": "dsmThis is the message", "timestamp": "1434:34:7"}, {"_id": "vfedc", "student": "aline_s@alustudent.com", "facilitator": "fdv@gmail.com", "title": "The Request Title", "message": "This is the message", "timestamp": "434:34:7"}, {"_id": "vfd", "student": "aline_s@alustudent.com", "facilitator": "fdv@gmail.com", "title": "The Request Title", "message": "This is the message", "timestamp": "434:34:7"}, {"_id": "fgvdvfd", "student": "aline_s@alustudent.com", "facilitator": "fdv@gmail.com", "title": "The Request Title", "message": "This is the message", "timestamp": "434:34:7"}, {"student": "aline_s@alustudent.com", "facilitator": "fdv@gmail.com", "title": "h", "message": "fg", "_id": "43096be9-59be-41f8-8439-2379e23b57f5", "timestamp": "2023-10-11 22:25:55"}, {"student": "aline_s@alustudent.com", "facilitator": "{facilitator.email}", "title": "Request for assistance", "message": "I am writing to request to change my campstone project changed to a new rpoject", "_id": "a9f3a3a2-9b21-4d09-b465-94363fbb87c5", "timestamp": "2023-10-12 08:47:26"}]
+[
+    {
+        "_id": "3s4gtdsd-e7gggge9-4b0f-9759c-78bd66c",
+        "student": "aline_s@alustudent.com",
+        "facilitator": "Martin_L@alustaff.com",
+        "title": "Request for Assistance",
+        "message": "This is a sample request message.",
+        "timestamp": "2023-10-12 08:47:26"
+    },
+    {
+        "_id": "vfedc-3s4gtdsd-e7gggget9-9759c-78bd66c",
+        "student": "aline_s@alustudent.com",
+        "facilitator": "Linda_Martin@alustaff.com",
+        "title": "Urgent Support Needed",
+        "message": "I need help with an assignment.",
+        "timestamp": "2023-10-12 08:47:26"
+    },
+    {
+        "_id": "3s43dgsd-e7gggge9-4b0fhjf-r467hh",
+        "student": "aline_s@alustudent.com",
+        "facilitator": "Linda_Martin@alustaff.com",
+        "title": "Query about the Course",
+        "message": "I have a question about the course content.",
+        "timestamp": "2023-10-12 08:47:26"
+    },
+    {
+        "_id": "3s4gtds45d-e7gggge9-4b0f78f9c-78bd66c",
+        "student": "aline_s@alustudent.com",
+        "facilitator": "Linda_Martin@alustaff.com",
+        "title": "Feedback on the Lecture",
+        "message": "I would like to provide feedback on the last lecture.",
+        "timestamp": "2023-10-12 08:47:26"
+    },
+    {
+        "_id": "43096be9-59be-41f8-8439-2379e23b57f5",
+        "student": "aline_s@alustudent.com",
+        "facilitator": "Linda_Martin@alustaff.com",
+        "title": "General Inquiry",
+        "message": "I have a general question to ask.",
+        "timestamp": "2023-10-12 08:47:26"
+    },
+    {
+        "_id": "a9f3a3a2-9b21-4d09-b465-94363fbb87c5",
+        "student": "aline_s@alustudent.com",
+        "facilitator": "Alix_h@alustaff.com",
+        "title": "Project Change Request",
+        "message": "I am writing to request a change in my capstone project.",
+        "timestamp": "2023-10-12 08:47:26"
+    }
+]

@@ -9,32 +9,38 @@
     <section >
         <div class="dashboard">
             <div class="header">
-                <h2 class="left">ALU SUPPORT</h2>
-                <form method="POST" action="/logout" class="right">
+                <h2 class="leftheader">ALU REQUESTS</h2>
+                <form method="POST" action="/logout" class="rightheader">
                     <input type="submit" value="Logout">
                 </form>
             </div>
             <div class="page">
                 <div>
-                    <h3 class="left">Submitted Requests</h3>
+                    {%if admin%}
+                        <h5>Admin Page</h5>
+                        <h3 class="left">All Submitted Requests</h3>
+                    {%else%}
+                        <h3 class="left">My Requests</h3>
+                    {%endif%}
                 </div>
-                <div class="group">
                 {% if requests %}
+                    <p>Total requests: {{ requests|length }}</p>
+                    <div class="group">
                         {% for request in requests %}
                             <div class="card">
                                 <h5>{{ request.title }}</h5> 
                                 <div>
                                     <p>{{ request.timestamp }}</p> 
-                                    <p>{{ request.facilitator }}</p> 
+                                    <p>{{ request.student }}</p> 
                                     <span>{{ request.message }}</span> 
                                 </div>
-                                <a href="{{ url_for('respond', requestID=request._id) }}">Respond</a>
+                                <a href="{{ url_for('respond_page', requestID=request._id, facilitator=userEmail) }}">Respond</a>
                             </div>
                         {% endfor %}
+                    </div>
                 {% else %}
                     You currently do not have any request
                 {% endif %}
-            </div>
             </div>
             
         </div>

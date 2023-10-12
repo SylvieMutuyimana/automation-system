@@ -48,7 +48,14 @@ def add_response(requestID):
         new_response['timestamp']  = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
         file_path = return_dataset("../../dataset/responses.json")
         all_request_data = return_data(file_path)
-        all_request_data[requestID].append(new_response)
+        print("all_request_data: ", all_request_data)
+        if requestID in all_request_data:
+            print('appending')
+            all_request_data[requestID].append(new_response)
+        else:
+            print('the new one')
+            all_request_data[requestID] = [new_response]
+        print("\n\n\n\nnew: ", all_request_data)
         with open(return_dataset("../../dataset/responses.json"), 'w') as json_file:
             json.dump(all_request_data, json_file)
         return jsonify(new_response), 200

@@ -22,6 +22,24 @@
   align-items: right;
   color: white;
 }
+.left, .leftheader{
+  float: left;
+}
+.rightheader, .leftheader{
+  width: 40%;
+}
+.rightheader{
+  float: right;
+  text-align: right;
+  align-items: right;
+  padding-right: 5%;
+}
+.leftheader{
+  padding-left: 5%;
+}
+.rightheader button{
+  color: #ffffffde;
+}
 .group{
   width: 100%;
   display: grid;
@@ -32,6 +50,7 @@
 
 .card{
   border: 1px solid #ccc;
+  border-radius: 5px;
   padding: 10px 20px;
   box-sizing: border-box;
     box-sizing: border-box; 
