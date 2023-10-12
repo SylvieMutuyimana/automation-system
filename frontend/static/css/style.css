@@ -34,6 +34,9 @@
   align-items: right;
   padding-right: 5%;
 }
+.timestamp{
+  font-size: 11px; 
+}
 .leftheader{
   padding-left: 5%;
 }
@@ -95,8 +98,8 @@ body {
 }
 
 #message{
-  height: 140px !important;
-  width: 250px !important;
+  height: 110px !important;
+  width: 500px !important;
 }
 
 section {
@@ -124,10 +127,7 @@ section.dashboard{
   text-align: center;
   background-color: olive;
 }
-.formContainer{
-  padding-top: 60px;
-  padding-bottom: 60px;
-}
+
 .formContainer{
   margin-top: 20px;
   padding-top: 20px;
@@ -137,7 +137,7 @@ section.dashboard{
   align-items: center;
   border-radius: 4px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 9);
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: column;
 }
@@ -220,5 +220,10 @@ input[type="submit"]:active {
   box-sizing: border-box;
      background-color: rgba(255, 255, 255, 0.808);
      color: #000;
-     width: 400px;
+     width: 800px;
+}
+.response .a_response{
+  width: 100%;
+  margin-top: 5px !important;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.829);
 }

@@ -10,8 +10,8 @@
     <section >
         <div class="dashboard">
             <div class="header">
-                <h2 class="left">ALU SUPPORT</h2>
-                <form method="POST" action="/logout" class="right">
+                <h2 class="leftheader">ALU REQUESTS</h2>
+                <form method="POST" action="/logout" class="rightheader">
                     <input type="submit" value="Logout">
                 </form>
             </div>
@@ -25,7 +25,7 @@
                 <form class="form new_request" method="POST" action="{{ url_for('new_request', student=student) }}">
                     <div class="inputBox">
                         <select name="facilitator" required>
-                            <option value="">Select</option>
+                            <option value="">Selecta facilitator</option>
                             {%if facilitators %}
                                 {%for facilitator in facilitators %}
                                     <option value={facilitator.email}>{{facilitator.firstName}} {{facilitator.middleName}} {{facilitator.lastName}}</option>

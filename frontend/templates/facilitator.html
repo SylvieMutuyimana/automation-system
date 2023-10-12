@@ -29,9 +29,16 @@
                         {% for request in requests %}
                             <div class="card">
                                 <h5>{{ request.title }}</h5> 
+                                <hr>
                                 <div>
                                     <p>{{ request.timestamp }}</p> 
-                                    <p>{{ request.student }}</p> 
+                                    <p>
+                                        {{ request.student }}  
+                                        {%if admin%}
+                                            to {{ request.facilitator }}
+                                        {%endif%}
+                                    </p> 
+                                    
                                     <span>{{ request.message }}</span> 
                                 </div>
                                 <a href="{{ url_for('respond_page', requestID=request._id, facilitator=userEmail) }}">Respond</a>

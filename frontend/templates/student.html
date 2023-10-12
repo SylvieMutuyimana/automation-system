@@ -20,11 +20,12 @@
                     <a href="{{ url_for('new_request', student=userEmail) }}" class="right">New Request</a>
                 </div>
                 {% if requests %}
-                <p>Total requests: {{ requests|length }}</p>
+                    <p>Total requests: {{ requests|length }}</p>
                     <div class="group">
                         {% for request in requests %}
                             <div class="card">
                                 <h5>{{ request.title }}</h5> 
+                                <hr>
                                 <div>
                                     <p>{{ request.timestamp }}</p> 
                                     <p>{{ request.facilitator }}</p> 
@@ -35,7 +36,8 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    <p>You currently have not submitted any request</p>
+                    <br>
+                    <div style="width: 100%;">You currently have not submitted any request</div>
                 {% endif %}
             </div>
             

@@ -92,13 +92,13 @@ def dashboard(userType, userEmail):
     the_requests = None
     response = requests.get(f'{backend_url}/requests/{userType}/{userEmail}')
     if userType == 'facilitator':
-        f_response = requests.get(f'{backend_url}/users/facilitators')
-        f_response = requests.get(f'{backend_url}/users/facilitators/{userEmail}')
-        admin = f_response.json().get('admin')
         if response.status_code == 200:
             the_requests = response.json()
+            f_response = requests.get(f'{backend_url}/users/facilitators/{userEmail}')
+            admin = f_response.json().get('admin')
             if(admin):
-                _requests = the_requests
+                response = requests.get(f'{backend_url}/requests')
+                _requests = response.json()
             else:
                 _requests = [request for request in the_requests if request['facilitator'] == userEmail]
         return render_template('facilitator.html', userError=userError, requests=_requests, userEmail=userEmail, admin=admin)  

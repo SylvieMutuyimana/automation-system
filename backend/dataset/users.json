@@ -50,32 +50,6 @@
             "password": "$2b$12$oEignh6xHA.alsiCdHBpE.O6HX7tFxuFVQ2.LRnm6H45grTIY00PG",
             "admin": true,
             "_id": "10178edc-2527-4081-835c-42fa90c96182"
-        },
-        {
-            "email": "jvfm@alustaff.com",
-            "firstName": "Jeff",
-            "middleName": "",
-            "lastName": "Veinder",
-            "password": "$2b$12$oEignh6xHA.alsiCdHBpE.O6HX7tFxuFVQ2.LRnm6H45grTIY00PG",
-            "admin": true,
-            "_id": "0868159a-1d8e-45a9-b353-f1ccb3bf46dc"
-        },
-        {
-            "email": "afdmin@rsa.com",
-            "firstName": "Maeti",
-            "middleName": "Max",
-            "lastName": "Maw",
-            "password": "$2b$12$oEignh6xHA.alsiCdHBpE.O6HX7tFxuFVQ2.LRnm6H45grTIY00PG",
-            "_id": "bd8e4c23-048b-4f8c-b1b0-2954b99e0fc4"
-        },
-        {
-            "email": "Linda_Martin@alustaff.com",
-            "firstName": "Linda",
-            "middleName": "M",
-            "lastName": "Tau",
-            "password": "$2b$12$oEignh6xHA.alsiCdHBpE.O6HX7tFxuFVQ2.LRnm6H45grTIY00PG",
-            "admin": true,
-            "_id": "8bfa5b29-9de8-42a8-b5d3-6847b2dfdd99"
         }
     ]
 }
